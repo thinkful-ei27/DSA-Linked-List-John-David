@@ -6,6 +6,14 @@ class LinkedList {
     this.head = null;
   }
 
+  addCycleNode(item1, item2) {
+    const node1 = new _Node(item1, this.head)
+    const node2 = new _Node(item2, node1)
+    node1.next = node2;
+    this.head = node2;
+  }
+
+
   find(item) { 
     //start at the head
     let currNode = this.head;
@@ -185,15 +193,74 @@ function reverseList(head, prev) {
 
 }
 
+function threeFromTheEnd(SLL) {
+  let currNode = SLL.head;
+  let prevNode = SLL.head;
+  let count = 0;
+  let listSize = size(SLL.head)
+  while(count !== listSize - 3) {
+    prevNode = currNode;
+    currNode = currNode.next;
+    count++
+  }
+  return currNode.value;
+}
+
+function middleList(SLL) {
+  let currNode = SLL.head;
+  let prevNode = SLL.head;
+  let middle = (Math.floor(size(SLL.head)/ 2))
+  console.log(middle)
+  let count = 0;
+  while(count !== middle) {
+    prevNode = currNode;
+    currNode = currNode.next;
+    count++
+  }
+  return prevNode;
+}
+
+function cycleLists(SLL) {
+  let currNode = SLL.head;
+  let prevNode = SLL.head;
+  let count = 0;
+  // let listSize = size(SLL.head)
+  while(true) {
+    prevNode = currNode;
+    currNode = currNode.next;
+    if (currNode === null) {
+      return false
+    }
+    if (currNode.value === SLL.head.value) {
+      break;
+    }
+    count++
+  }
+  return true;
+}
+
+
+
+
+
 function main() {
   let SLL = new LinkedList();
-
+  let CycleList = new LinkedList();
+  CycleList.addCycleNode('Hi', 'Bye')
+  // CycleList.insertLast('abc')
+  // CycleList.insertAt('abcd')
   SLL.insertLast('Apollo');
   SLL.insertLast('Boomer');
   SLL.insertLast('Helo');
   SLL.insertLast('Husker');
   SLL.insertLast('Starbuck');
   SLL.insertLast('Tauhida');
+  SLL.insertLast('John');
+  SLL.insertLast('Johnny');
+  console.log(cycleLists(SLL))
+
+
+  // SLL.insertLast('Tauhidaaa');
   // SLL.remove('squirrel');
   // SLL.insertBefore('Boomer', 'Athena');
   // SLL.insertAfter('Helo', 'Hotdog');
@@ -206,8 +273,10 @@ function main() {
   // console.log(findPrevious(SLL, 'Husker'));
   // console.log(findLast(SLL.head));
   // console.log(JSON.stringify(WhatDoesThisProgramDo(SLL), null, 2));
-  console.log(reverseList(SLL.head));
-
+  // console.log(reverseList(SLL.head));
+  // console.log(threeFromTheEnd(SLL))
+  // console.log(middleList(SLL))
+  // console.log(CycleList)
 }
 
 main();
