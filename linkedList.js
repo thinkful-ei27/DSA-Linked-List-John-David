@@ -82,7 +82,7 @@ class LinkedList {
     while(count !== index) {
       prevNode = currNode;
       currNode = currNode.next;
-      count++
+      count++;
     }
     this.insertAfter(prevNode.value, item);
 
@@ -124,18 +124,66 @@ class LinkedList {
   }
 }
 
- function display(SLL) {
+function display(SLL) {
   console.log(JSON.stringify(SLL, null, 2));
- }
+}
 
-  function size(head) {
-
-    if (head.next === null) {
-      return 1
-    }
-    return size(head.next) + 1
-
+function size(head) {
+  if (head.next === null) {
+    return 1;
   }
+  return size(head.next) + 1;
+}
+
+function isEmpty(sll) {
+  // Finds if the list is empty or not
+  return (sll.head === null);
+}
+
+function findPrevious(sll, item) {
+  const {prevNode} = sll.find(item);
+  return prevNode;
+}
+
+function findLast(head) {
+  // Base
+  if (head.next === null) {
+    return head.value;
+  }
+  return findLast(head.next);
+}
+
+// Mystery program
+// Runtime complexity = O(n^2)
+// What does this program do? This program does not do anything...no return value, no mutation.
+function WhatDoesThisProgramDo(lst){
+  let current = lst.head;
+  while(current !== null){
+    let newNode = current;
+    while (newNode.next !== null) {
+      if (newNode.next.value === current.value) {
+        newNode.next = newNode.next.next;
+      }
+      else{
+        newNode = newNode.next;
+      }
+    }
+    current = current.next;
+  }
+}
+
+function reverseList(head, prev) {
+  if (head.next === null) {
+    head.next = prev;
+    return head;
+  }
+  // console.log('currNode is ', currNode);
+  // Take next, and point to prior node
+  const ret = reverseList(head.next, head);
+  head.next = prev;
+  return ret;
+
+}
 
 function main() {
   let SLL = new LinkedList();
@@ -146,17 +194,20 @@ function main() {
   SLL.insertLast('Husker');
   SLL.insertLast('Starbuck');
   SLL.insertLast('Tauhida');
-  SLL.remove('squirrel');
-  SLL.insertBefore('Boomer', 'Athena');
-  SLL.insertAfter('Helo', 'Hotdog');
-  SLL.insertAt('Kat', 4)
-  SLL.remove('Tauhida')
-  // const {prevNode} = SLL.find('Boomer');
-  // console.log(prevNode);
+  // SLL.remove('squirrel');
+  // SLL.insertBefore('Boomer', 'Athena');
+  // SLL.insertAfter('Helo', 'Hotdog');
+  // SLL.insertAt('Kat', 4);
+  // SLL.remove('Tauhida');
   
-    // console.log(JSON.stringify(SLL, null, 2));
-  console.log(size(SLL.head));
- //.log(SLL)
+  // console.log(JSON.stringify(SLL, null, 2));
+  // console.log(size(SLL.head));
+  // console.log(isEmpty(SLL));
+  // console.log(findPrevious(SLL, 'Husker'));
+  // console.log(findLast(SLL.head));
+  // console.log(JSON.stringify(WhatDoesThisProgramDo(SLL), null, 2));
+  console.log(reverseList(SLL.head));
+
 }
 
 main();
