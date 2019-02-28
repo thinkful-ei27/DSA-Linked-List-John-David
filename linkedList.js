@@ -74,7 +74,18 @@ class LinkedList {
 
   }
 
-  insertAt(item) {
+  insertAt(item, index) {
+    let prevNode = this.head;
+    let currNode = this.head;
+
+    let count = 0;
+    while(count !== index) {
+      prevNode = currNode;
+      currNode = currNode.next;
+      count++
+    }
+    this.insertAfter(prevNode.value, item);
+
     // Keep track of previous and current node
     // 1. Create new node
     // 2. Next pointer will point to current node
@@ -113,13 +124,18 @@ class LinkedList {
   }
 }
 
-// function display(sll) {
+ function display(SLL) {
+  console.log(JSON.stringify(SLL, null, 2));
+ }
 
-// }
+  function size(head) {
 
-// function size() {
+    if (head.next === null) {
+      return 1
+    }
+    return size(head.next) + 1
 
-// }
+  }
 
 function main() {
   let SLL = new LinkedList();
@@ -133,11 +149,14 @@ function main() {
   SLL.remove('squirrel');
   SLL.insertBefore('Boomer', 'Athena');
   SLL.insertAfter('Helo', 'Hotdog');
+  SLL.insertAt('Kat', 4)
+  SLL.remove('Tauhida')
   // const {prevNode} = SLL.find('Boomer');
   // console.log(prevNode);
-  console.log(SLL.find('Hotdog'));
-  console.log(SLL);
-
+  
+    // console.log(JSON.stringify(SLL, null, 2));
+  console.log(size(SLL.head));
+ //.log(SLL)
 }
 
 main();
