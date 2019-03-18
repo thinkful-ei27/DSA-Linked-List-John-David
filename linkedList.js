@@ -183,6 +183,7 @@ function WhatDoesThisProgramDo(lst){
 function reverseList(head, prev) {
   if (head.next === null) {
     head.next = prev;
+    console.log("base Case Head: ", head)
     return head;
   }
   // console.log('currNode is ', currNode);
@@ -190,43 +191,44 @@ function reverseList(head, prev) {
   const ret = reverseList(head.next, head);
   head.next = prev;
   return ret;
+}
 
+function reverseList(head, prev) {
+
+  if (head.next === null) {
+    head.next = prev;
+    return head
+  }
+
+  const ret = reverseList(head.next, head)
+  head.next = prev;
+  return ret
 }
 
 function threeFromTheEnd(SLL) {
-  let currNode = SLL.head;
-  let prevNode = SLL.head;
-  let count = 0;
-  let listSize = size(SLL.head)
-  while(count !== listSize - 3) {
-    prevNode = currNode;
+   let currNode = SLL.head;
+  while(currNode.next.next.next.next !== null) {
     currNode = currNode.next;
-    count++
-  }
+  } 
   return currNode.value;
+
 }
 
+
 function middleList(SLL) {
-  let currNode = SLL.head;
-  let prevNode = SLL.head;
-  let middle = (Math.floor(size(SLL.head)/ 2))
-  console.log(middle)
-  let count = 0;
-  while(count !== middle) {
-    prevNode = currNode;
-    currNode = currNode.next;
-    count++
+   let currNode = SLL.head;
+   let middleNode = SLL.head;
+  while((currNode !== null && currNode.next !== null)) {
+    currNode = currNode.next.next
+    middleNode = middleNode.next
   }
-  return prevNode;
+
 }
 
 function cycleLists(SLL) {
   let currNode = SLL.head;
-  let prevNode = SLL.head;
-  let count = 0;
   // let listSize = size(SLL.head)
   while(true) {
-    prevNode = currNode;
     currNode = currNode.next;
     if (currNode === null) {
       return false
@@ -234,12 +236,80 @@ function cycleLists(SLL) {
     if (currNode.value === SLL.head.value) {
       break;
     }
-    count++
   }
   return true;
 }
 
+function reverseList(node, prevNode) {
 
+  if (node.next === null) {
+
+    node.next = prevNode
+    return node
+  }
+
+  const ret = reverseList(node.next, node)
+
+
+}
+
+function binarySearch(arr, value, start, end) {
+  var start = start === undefined ? 0 : start;
+  var end = end === undefined ? Array.length : end;
+
+  if (start > end) {
+    return -1;
+  }
+
+  const index = Math.floor((start + end ) / 2)
+  const item = array[index]
+
+  console.log(start, end);
+
+  if (item == value) {
+    return index;
+  } else if (item < value) {
+    return binarySearch(array, value, index + 1, end);
+  } else if (item > value) {
+    return binarySearch(array, value, start, index -1)
+  }
+
+}
+
+
+
+
+
+function binSearch(array, value, start, end) {
+  let start = start === undefined ? 0 : start;
+  let end = end === undefined ? array.length : end;
+
+  const halfValue = Math.floor((start + end) / 2)
+
+  if (start > end) {
+    return -1
+  }
+
+  if (item === value) {
+    return item
+  } else if (item < value) {
+    return binarySearch(array, value, halfValue + 1, end)
+  } else if (item > value) {
+    return binarySearch(array, value, halfValue + 1, end);
+  }
+}
+
+function revlist(node, prevNode) {
+
+  if (node.next === null) {
+    node.next = prevNode
+    return node
+  }
+
+  const ret = revlist(node.next, node)
+  node.next = prevNode;
+  return ret;
+}
 
 
 
@@ -257,7 +327,7 @@ function main() {
   SLL.insertLast('Tauhida');
   SLL.insertLast('John');
   SLL.insertLast('Johnny');
-  console.log(cycleLists(SLL))
+  console.log(JSON.stringify(reverseList(SLL.head)))
 
 
   // SLL.insertLast('Tauhidaaa');
